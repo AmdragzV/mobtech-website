@@ -6,79 +6,82 @@ import { HiOutlineFolder, HiOutlineGlobeAlt } from "react-icons/hi";
 
 export default function OurSolutionsSection() {
   return (
-    <section className="w-full py-[80px] bg-white px-6 sm:px-[80px]">
-      <div className="grid gap-16 w-full max-w-[1240px] mx-auto">
-        <div className="grid gap-5 w-full">
-          <h1 className="text-2xl leading-6 sm:text-[48px] font-medium sm:leading-[48px] bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent">
+    <section className="w-full py-20 bg-gray-50 px-6 sm:px-20">
+      <div className="max-w-7xl mx-auto space-y-16">
+        <div className="text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent mb-5">
             Our Solutions
           </h1>
-          <p className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             At MobTech, we deliver innovative, technology-driven solutions
             designed to empower businesses and enrich communities, fostering
             growth and impact on a global scale.
           </p>
         </div>
-        <div className="flex flex-col relative">
-          <Image
-            alt="main mobtech logo"
-            src={mainLogoLarge}
-            className="w-[112px] h-[96px] absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 hidden lg:block"
-          />
-          <div className="flex flex-col lg:flex-row h-full lg:h-[396px]">
-            <div className="flex flex-col items-start py-10 px-[100px] border-r border-r-black border-b border-b-black w-full max-w-[625px]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-md p-[10px] bg-[#F9F9FB]">
-                <HiOutlineGlobeAlt size={20} style={{ color: "#000000" }} />
+
+        <div className="relative">
+          <div className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
+            <Image
+              alt="main mobtech logo"
+              src={mainLogoLarge}
+              width={100}
+              height={100}
+              className="rounded-full border-4 border-white shadow-lg"
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-0 border border-gray-200 rounded-2xl overflow-hidden">
+            <div className="p-8 md:p-12 flex flex-col justify-center border-b md:border-r border-gray-200">
+              <div className="w-16 h-16 rounded-lg bg-[#F9F9FB] flex items-center justify-center mb-6">
+                <HiOutlineGlobeAlt size={32} className="text-black" />
               </div>
-              <h2 className="text-2xl leading-6 text-black sm:text-[32px] font-medium sm:leading-[48px] mb-5 mt-2">
+              <h2 className="text-3xl font-semibold text-[#00003E] mb-4">
                 Web Development
               </h2>
-              <p className="text-base leading-[32px] text-black font-medium sm:text-xl sm:leading-10">
+              <p className="text-gray-700 leading-relaxed">
                 Through Nexovate, Mobtech crafts custom web solutions with
                 responsive design, scalable architecture, and data-driven
                 strategies for optimal performance and satisfaction.
               </p>
             </div>
-            <div className="flex flex-col items-start py-10 px-[100px] border-l border-l-black border-b border-b-black w-full max-w-[625px]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-md p-[10px] bg-[#F9F9FB]">
-                <HiOutlineFolder size={20} style={{ color: "#000000" }} />
-              </div>
 
-              <h2 className="text-2xl leading-6 text-black sm:text-[32px] font-medium sm:leading-[48px] mb-5 mt-2">
+            <div className="p-8 md:p-12 flex flex-col justify-center border-b border-l border-gray-200">
+              <div className="w-full h-16 rounded-lg bg-[#F9F9FB] flex items-center justify-end mb-6">
+                <HiOutlineFolder size={32} className="text-black" />
+              </div>
+              <h2 className="text-3xl font-semibold text-[#00003E] mb-4">
                 Software and SAAS Development
               </h2>
-              <p className="text-base leading-[32px] text-black font-medium sm:text-xl sm:leading-10">
+              <p className="text-gray-700 leading-relaxed">
                 Mobtech specializes in SaaS development, delivering adaptable,
                 efficient solutions that empower businesses globally while
                 optimizing IT budgets.
               </p>
             </div>
-          </div>
 
-          <div className="flex flex-col lg:flex-row h-full lg:h-[396px]">
-            <div className="flex flex-col items-start py-10 px-[100px] border-r border-r-black border-t border-t-black w-full max-w-[625px]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-md p-[10px] bg-[#F9F9FB]">
-                <FaGamepad size={20} style={{ color: "#000000" }} />
+            <div className="p-8 md:p-12 flex flex-col justify-center border-r border-t border-gray-200">
+              <div className="w-16 h-16 rounded-lg bg-[#F9F9FB] flex items-center justify-center mb-6">
+                <FaGamepad size={32} className="text-black" />
               </div>
-
-              <h2 className="text-2xl leading-6 text-black sm:text-[32px] font-medium sm:leading-[48px] mb-5 mt-2">
+              <h2 className="text-3xl font-semibold text-[#00003E] mb-4">
                 Game Development
               </h2>
-              <p className="text-base leading-[32px] text-black font-medium sm:text-xl sm:leading-10">
+              <p className="text-gray-700 leading-relaxed">
                 At Gacom, we blend gaming expertise with community engagement,
                 creating captivating games and innovative gadgets to elevate the
                 gaming experience. Our mission is to build a vibrant community
                 and lead the gaming industry.
               </p>
             </div>
-            <div className="flex flex-col items-start py-10 px-[100px] border-l border-l-black border-t border-t-black w-full max-w-[625px]">
-              <div className="w-[2.5rem] h-[2.5rem] rounded-md p-[10px] bg-[#F9F9FB]">
-                <FaPenNib size={20} style={{ color: "#000000" }} />
-              </div>
 
-              <h2 className="text-2xl leading-6 text-black sm:text-[32px] font-medium sm:leading-[48px] mb-5 mt-2">
+            <div className="p-8 md:p-12 flex flex-col justify-center border-t border-l border-gray-200">
+              <div className="w-full h-16 rounded-lg bg-[#F9F9FB] flex items-center justify-end mb-6">
+                <FaPenNib size={32} className="text-black" />
+              </div>
+              <h2 className="text-3xl font-semibold text-[#00003E] mb-4">
                 Creative & Animation Services
               </h2>
-              <p className="text-base leading-[32px] text-black font-medium sm:text-xl sm:leading-10">
+              <p className="text-gray-700 leading-relaxed">
                 Oragion combines animation and storytelling to bring ideas to
                 life, blending Christian fiction with supernatural narratives.
                 Our content inspires, educates, and entertains, reaching a wide

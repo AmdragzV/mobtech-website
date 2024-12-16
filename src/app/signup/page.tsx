@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import MobtechLogo from "../../../public/mobtechLogo.svg";
+import MobtechLogo from "../../../public/svg/mobtechLogo.svg";
 
 export default function SignUp() {
   return (
