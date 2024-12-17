@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function MissionAndVisionSection() {
   return (
-    <section className="relative py-[100px] bg-gray-50 px-6 sm:px-[80px]">
-      <div className="max-w-[1240px] mx-auto grid grid-cols-1 lg:gap-20">
+    <section className="relative py-[100px] bg-white px-6 sm:px-[80px]">
+      <div className="max-w-[1240px] mx-auto grid grid-cols-1 gap-10 lg:gap-20">
         <div className="flex flex-col sm:flex-row items-center gap-12">
           <div className="w-full sm:w-1/2 h-[300px] relative">
             <Image
@@ -19,7 +19,7 @@ export default function MissionAndVisionSection() {
             <h2 className="text-4xl font-semibold text-transparent bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text">
               Our Mission
             </h2>
-            <p className="text-lg text-gray-600 mt-6 leading-8">
+            <p className="text-lg text-gray-600 mt-2 leading-8">
               To address critical challenges by creating forward-thinking,
               sustainable, and impactful solutions that leverage the best of
               science, technology, and engineering.
@@ -32,7 +32,7 @@ export default function MissionAndVisionSection() {
               strategic partnerships, continuous innovation, and a commitment to
               social responsibility.
             </p>
-            <button className="mt-6 px-8 py-3 text-white bg-gray-700 rounded-md shadow-md hover:bg-gray-900 transition-all">
+            <button className="mt-10 px-8 py-3 text-white bg-[#00008B] rounded-md shadow-md md:hover:bg-gray-800 transition-all">
               Learn More
             </button>
           </div>
@@ -43,12 +43,12 @@ export default function MissionAndVisionSection() {
             <h2 className="text-4xl font-semibold text-transparent bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text">
               Our Vision
             </h2>
-            <p className="text-lg text-gray-600 mt-6 leading-8">
+            <p className="text-lg text-gray-600 mt-2 leading-8">
               To be a catalyst for positive change, addressing both community
               and global challenges through transformative innovations in
               science, technology, and engineering.
             </p>
-            <button className="mt-6 px-8 py-3 text-white bg-gray-700 rounded-md shadow-md hover:bg-gray-900 transition-all">
+            <button className="mt-10 px-8 py-3 text-white bg-[#00008B] rounded-md shadow-md md:hover:bg-gray-800 transition-all">
               Learn More
             </button>
           </div>

@@ -144,7 +144,7 @@ export default function ContactUsSection() {
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleChange}
-              className={`p-5 border-2 rounded-md bg-[#F9F9F9] w-full ${
+              className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
                 errors.firstName ? "border-red-500" : "border-[#D4D4D4]"
               }`}
             />
@@ -162,7 +162,7 @@ export default function ContactUsSection() {
               placeholder="E-mail"
               value={formData.email}
               onChange={handleChange}
-              className={`p-5 border-2 rounded-md bg-[#F9F9F9] w-full ${
+              className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
                 errors.email ? "border-red-500" : "border-[#D4D4D4]"
               }`}
             />
@@ -180,7 +180,7 @@ export default function ContactUsSection() {
               placeholder="Phone Number"
               value={formData.phoneNumber}
               onChange={handleChange}
-              className={`p-5 border-2 rounded-md bg-[#F9F9F9] w-full ${
+              className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
                 errors.phoneNumber ? "border-red-500" : "border-[#D4D4D4]"
               }`}
             />
@@ -196,12 +196,12 @@ export default function ContactUsSection() {
             placeholder="Message"
             value={formData.message}
             onChange={handleChange}
-            className="p-5 border-2 border-[#D4D4D4] rounded-md bg-[#F9F9F9] h-[229px] mt-5"
+            className="p-5 border-2 text-[#808080] border-[#D4D4D4] rounded-md bg-[#F9F9F9] h-[229px] mt-5"
           ></textarea>
 
           <button
             type="submit"
-            className="p-5 rounded-md mt-[2rem] bg-[#00003E] text-xl leading-8 font-medium text-white hover:bg-[#000054] transition-colors"
+            className="p-5 rounded-md mt-[2rem] bg-[#00008B] text-xl leading-8 font-medium text-white md:hover:bg-[#000054] transition-colors"
           >
             Send Message
           </button>
