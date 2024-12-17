@@ -31,14 +31,14 @@ export default function FaqSection() {
   return (
     <section className="w-full py-[49px] bg-[#F9F9FB] px-6 sm:px-[100px]">
       <div className="w-full max-w-[1240px] mx-auto">
-        <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent mb-5 text-center">
+        <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent mb-10 text-center">
           Frequently Asked Questions
         </h1>
         <div className="grid gap-5 w-full max-w-[800px] mx-auto">
           {faqData.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-[20px] shadow-lg transition-all duration-300 ease-in-out"
+              className="bg-white rounded-[20px] transition-all duration-300 ease-in-out"
             >
               <div
                 className="flex items-center justify-between h-[132px] px-10 cursor-pointer"
@@ -56,7 +56,16 @@ export default function FaqSection() {
                 </div>
               </div>
               {activeIndex === index && (
-                <div className="px-10 pb-10 text-[#666] text-base sm:text-lg animate-fade-in">
+                <div
+                  style={{
+                    animation: "fadeInDown 0.3s ease-out forwards",
+                    transformOrigin: "top",
+                    opacity: 0,
+                    transform: "scaleY(0.8)",
+                    animationName: "fadeInDown",
+                  }}
+                  className="px-10 pb-10 text-[#666] text-base sm:text-lg"
+                >
                   {faq.answer}
                 </div>
               )}
@@ -64,6 +73,18 @@ export default function FaqSection() {
           ))}
         </div>
       </div>
+      <style jsx global>{`
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: scaleY(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scaleY(1);
+          }
+        }
+      `}</style>
     </section>
   );
 }

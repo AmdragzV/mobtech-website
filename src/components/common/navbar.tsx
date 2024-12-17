@@ -42,7 +42,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <button className="px-6 py-2 bg-[#142d40] rounded-md text-lg font-semibold text-white hover:opacity-80">
+        <button className="px-6 py-2 bg-[#00008B] rounded-md text-lg font-semibold text-white hover:opacity-80">
           Login
         </button>
       </div>

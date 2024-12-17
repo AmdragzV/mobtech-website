@@ -33,13 +33,13 @@ export default function AboutMobtechSection() {
             and community impact.
           </p>
           <Link href="/about-us">
-            <button className="flex items-center gap-[10px] bg-white border-2 border-[#00003E] rounded-md py-2 px-5 group hover:bg-[#00003E] transition-all ease-in-out duration-300">
-              <p className="text-md leading-[30px] text-[#00003E] font-medium group-hover:text-white">
+            <button className="flex items-center gap-[10px] bg-white border-2 border-[#00008B] rounded-md py-2 px-5 group md:hover:bg-[#00008B] transition-all ease-in-out duration-300">
+              <p className="text-md leading-[30px] text-[#00008B] font-medium md:group-hover:text-white">
                 Learn more
               </p>
               <FaArrowRight
                 size={16}
-                className="text-[#000000] group-hover:text-white transition-all ease-in-out duration-300"
+                className="text-[#00008B] md:group-hover:text-white transition-all ease-in-out duration-300"
               />
             </button>
           </Link>

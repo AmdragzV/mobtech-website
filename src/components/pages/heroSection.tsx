@@ -62,7 +62,7 @@ export default function HeroSection() {
         </p>
 
         <Link href="/brands">
-          <button className="px-8 py-4 bg-[#142d40] rounded-xl text-xl font-bold text-white cursor-pointer">
+          <button className="px-8 py-4 bg-[#00008B] md:hover:bg-[#00003E] rounded-xl text-xl font-bold text-white cursor-pointer">
             Explore our solutions
           </button>
         </Link>
