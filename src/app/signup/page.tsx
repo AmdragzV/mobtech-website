@@ -1,8 +1,133 @@
+"use client";
+
+import React, { useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth } from "@/lib/firebase";
 import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import ErrorAlert from "@/components/ui/ErrorAlert";
+
+type AuthError = {
+  code: string;
+};
 
 export default function SignUp() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const router = useRouter();
+
+  const getErrorMessage = (error: string | AuthError): string => {
+    if (typeof error === "string") return error;
+
+    const errorMap: Record<string, string> = {
+      "auth/email-already-in-use": "Email has been registered",
+      "auth/invalid-email": "Enter valid email address",
+      "auth/weak-password": "Enter at least 6 characters",
+      "auth/popup-closed-by-user": "Sign up was cancelled",
+      "auth/operation-not-allowed": "Google sign up is not enabled",
+    };
+
+    return errorMap[error.code] || "An error occurred during sign up";
+  };
+
+  const validateForm = () => {
+    if (!email) {
+      setError("Email is required");
+      return false;
+    }
+    if (!password) {
+      setError("Password is required");
+      return false;
+    }
+    if (password.length < 6) {
+      setError("Enter at least 6 characters");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return false;
+    }
+    if (!acceptTerms) {
+      setError("Please accept the Terms and Conditions");
+      return false;
+    }
+    return true;
+  };
+
+  const handleGoogleSignUp = async () => {
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      router.push("/"); 
+    } catch (error: unknown) {
+      if (typeof error === "string") {
+        setError(getErrorMessage(error));
+      } else if (error instanceof Object && "code" in error) {
+        setError(getErrorMessage(error as AuthError));
+      } else {
+        setError("An error occurred during Google sign up");
+      }
+      setIsVisible(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignUp = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+    if (!validateForm()) {
+      setIsVisible(true);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push("/"); 
+    } catch (error: unknown) {
+      if (typeof error === "string") {
+        setError(getErrorMessage(error));
+      } else if (
+        error instanceof Object &&
+        "code" in error &&
+        typeof (error as AuthError).code === "string"
+      ) {
+        setError(getErrorMessage(error as AuthError));
+      } else {
+        setError("An unexpected error occurred");
+      }
+      setIsVisible(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="md:bg-gray-50 grid place-items-center h-[100dvh]">
+      <ErrorAlert
+        error={error}
+        isVisible={isVisible}
+        onClose={() => setIsVisible(false)}
+        autoDismiss={true}
+        autoDismissTime={4000}
+      />
       <div className="mt-7 bg-white rounded-xl shadow-sm max-w-xl w-full">
         <div className="p-4 sm:p-7">
           <div className="text-center">
@@ -23,6 +148,8 @@ export default function SignUp() {
           <div className="mt-5">
             <button
               type="button"
+              onClick={handleGoogleSignUp}
+              disabled={isLoading}
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
             >
               <svg
@@ -49,17 +176,17 @@ export default function SignUp() {
                   fill="#EB4335"
                 />
               </svg>
-              Sign up with Google
+              {isLoading ? "Signing up..." : "Sign up with Google"}
             </button>
 
             <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6">
               Or
             </div>
 
-            <form>
+            <form onSubmit={handleSignUp}>
               <div className="grid gap-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm mb-2 ">
+                  <label htmlFor="email" className="block text-sm mb-2">
                     Email address
                   </label>
                   <div className="relative">
@@ -67,66 +194,44 @@ export default function SignUp() {
                       type="email"
                       id="email"
                       name="email"
-                      className="py-3 px-4 tracking-wider block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none "
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="py-3 px-4 tracking-wider block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                       required
-                      aria-describedby="email-error"
                       placeholder="mobtech@gmail.com"
+                      disabled={isLoading}
                     />
-                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                      <svg
-                        className="size-5 text-red-500"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                      >
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                      </svg>
-                    </div>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="email-error"
-                  >
-                    Please include a valid email address so we can get back to
-                    you
-                  </p>
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm mb-2 ">
+                  <label htmlFor="password" className="block text-sm mb-2">
                     Password
                   </label>
                   <div className="relative">
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="py-3 px-4 tracking-wider block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                       required
-                      aria-describedby="password-error"
                       placeholder="▪▪▪▪▪▪▪▪"
+                      disabled={isLoading}
                     />
-                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                      <svg
-                        className="size-5 text-red-500"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                      >
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                      </svg>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-600"
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="h-5 w-5" />
+                      ) : (
+                        <FaEye className="h-5 w-5" />
+                      )}
+                    </button>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="password-error"
-                  >
-                    8+ characters required
-                  </p>
                 </div>
 
                 <div>
@@ -138,49 +243,36 @@ export default function SignUp() {
                   </label>
                   <div className="relative">
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="confirm-password"
                       name="confirm-password"
-                      className="py-3 px-4 block tracking-wider w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="py-3 px-4 tracking-wider block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                       required
-                      aria-describedby="confirm-password-error"
                       placeholder="▪▪▪▪▪▪▪▪"
+                      disabled={isLoading}
                     />
-                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                      <svg
-                        className="size-5 text-red-500"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                      >
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                      </svg>
-                    </div>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="confirm-password-error"
-                  >
-                    Password does not match the password
-                  </p>
                 </div>
 
                 <div className="flex items-center">
                   <div className="flex">
                     <input
-                      id="remember-me"
-                      name="remember-me"
+                      id="accept-terms"
+                      name="accept-terms"
                       type="checkbox"
-                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 0"
+                      checked={acceptTerms}
+                      onChange={(e) => setAcceptTerms(e.target.checked)}
+                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="ms-3">
-                    <label htmlFor="remember-me" className="text-sm">
+                    <label htmlFor="accept-terms" className="text-sm">
                       I accept the{" "}
                       <a
-                        className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium "
+                        className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium"
                         href="#"
                       >
                         Terms and Conditions
@@ -191,9 +283,10 @@ export default function SignUp() {
 
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full py-3 px-4 tracking-wider inline-flex justify-center items-center gap-x-2 text-lg font-medium rounded-lg border border-transparent bg-[#00008B] text-white hover:bg-[#00003E] focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  Sign up
+                  {isLoading ? "Signing up..." : "Sign up"}
                 </button>
               </div>
             </form>
