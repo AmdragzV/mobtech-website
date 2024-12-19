@@ -41,13 +41,13 @@ export default function FaqSection() {
               className="bg-white rounded-[20px] transition-all duration-300 ease-in-out"
             >
               <div
-                className="flex items-center justify-between h-[132px] px-10 cursor-pointer"
+                className="flex items-center justify-between h-[132px] px-5 sm:px-10 cursor-pointer"
                 onClick={() => toggleFaq(index)}
               >
                 <p className="text-base leading-6 text-[#808080] sm:text-lg sm:leading-8 font-semibold">
                   {faq.question}
                 </p>
-                <div className="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-[#F9F9FB] text-black">
+                <div className="flex items-center justify-center w-[52px] h-[40px] sm:h-[52px] rounded-full bg-[#F9F9FB] text-black">
                   {activeIndex === index ? (
                     <FaMinus size={12} className="text-black" />
                   ) : (

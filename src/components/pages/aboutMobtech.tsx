@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function AboutMobtechSection() {
   return (
-    <section className="w-full py-[80px] bg-white px-6 sm:px-[80px] relative overflow-hidden">
+    <section className="w-full py-10 sm:py-[80px] bg-white px-6 sm:px-[80px] relative overflow-hidden">
       <Image
         alt="tech frame for design"
         src={TechFrame}

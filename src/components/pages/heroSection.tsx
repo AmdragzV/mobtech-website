@@ -25,7 +25,7 @@ export default function HeroSection() {
   }, [fullText]);
 
   return (
-    <div className="flex flex-col items-center px-6 pt-[131px] bg-white h-full sm:h-screen relative">
+    <div className="flex flex-col items-center px-6 pt-10 sm:pt-[131px] bg-white h-auto sm:h-screen relative">
       <Image alt="" src={homeBg} className="absolute inset-0" />
       <Image
         alt=""
@@ -46,12 +46,11 @@ export default function HeroSection() {
           }}
         ></div>
 
-        <h1 className="sm:text-[64px] text-black font-medium sm:leading-[64px] text-[32px] leading-8 text-center">
+        <h1 className="sm:text-[64px] text-black font-medium sm:leading-[64px] text-[32px] leading-10 text-center">
           Empower the future with
         </h1>
         <h1
           className="sm:text-[146px] font-medium sm:leading-[146px] text-[64px] leading-[64px] text-center mb-5 bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent typing-text"
-          style={{ height: "146px" }}
         >
           {text}
         </h1>
