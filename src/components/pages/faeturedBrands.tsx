@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function FeaturedBrandsSection() {
   return (
-    <section className="w-full py-20 bg-white px-6 sm:px-20">
+    <section className="w-full py-10 sm:py-20 bg-white px-6 sm:px-20">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent">

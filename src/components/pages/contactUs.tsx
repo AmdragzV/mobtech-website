@@ -92,8 +92,8 @@ export default function ContactUsSection() {
   };
 
   return (
-    <section className="w-full py-[136px] bg-white px-6 sm:px-[100px] relative overflow-clip">
-      <div className="w-[230px] h-[217px] bg-[#00003E] rounded-full absolute -left-[118px] -top-[81px]"></div>
+    <section className="w-full py-10 sm:py-[136px] bg-white px-6 sm:px-[100px] relative overflow-clip">
+      <div className="hidden sm:block w-[230px] h-[217px] bg-[#00003E] rounded-full absolute -left-[118px] -top-[81px]"></div>
       <div className="flex flex-col lg:flex-row items-center justify-between gap-5 w-full max-w-[1228px] mx-auto">
         <div className="flex flex-col self-start justify-center gap-[96px]">
           <div className="grid gap-5">

@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <footer className="w-full pt-20 pb-6 bg-[#00008B] px-4">
       <div className="grid items-center w-full max-w-[1025px] mx-auto">
-        <div className="flex gap-10 items-center justify-center w-full max-w-2xl mx-auto">
+        <div className="flex gap-5 sm:gap-10 items-center justify-center w-full max-w-2xl mx-auto">
           <div className="flex space-x-6">
             {footerLinks.slice(0, 2).map((link, index) => (
               <p
@@ -31,7 +31,7 @@ export default function Footer() {
           <Image
             alt="Main Logo"
             src={MainLogoLarge}
-            className="w-[80px] h-[80px]"
+            className="w-[80px] h-[80px] hidden sm:inline"
           />
 
           <div className="flex space-x-6">

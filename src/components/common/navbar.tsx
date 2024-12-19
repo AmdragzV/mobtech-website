@@ -7,6 +7,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState("Home");
+  const [isOpen, setIsOpen] = useState(false);
 
   const navigationMenu = [
     { name: "Home", href: "/" },
@@ -16,13 +17,15 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="bg-white ">
-      <div className="sm:flex items-center justify-between mx-[30px] md:px-[60px] py-4 m-auto w-full max-w-[1340px]">
+    <nav className="bg-white ">
+      <div className="flex sm:flex sm:items-center justify-between px-[1.875rem] md:px-[3.75rem] py-4 m-auto w-full max-w-[1340px]">
         <Image
           alt="mobtech logo image"
           src={MobtechLogo}
           width={70}
           height={50}
+          className="w-[70px] h-[50px]"
+          onClick={() => setIsOpen(!isOpen)}
         />
         <ul className="flex items-center justify-between w-full max-w-[486px] max-md:hidden">
           {navigationMenu.map((link) => (
@@ -48,6 +51,22 @@ export default function Navbar() {
           </button>
         </Link>
       </div>
-    </div>
+
+      <div
+        className={`md:hidden px-6 py-4 space-y-2 bg-[#00008B] transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0 h-auto" : "-translate-x-full h-0"
+        }`}
+      >
+        {navigationMenu.map((item) => (
+          <a
+            key={item.name}
+            href={item.href}
+            className="block text-white hover:bg-white hover:text-[#00008B] px-3 py-2 rounded-lg"
+          >
+            {item.name}
+          </a>
+        ))}
+      </div>
+    </nav>
   );
 }

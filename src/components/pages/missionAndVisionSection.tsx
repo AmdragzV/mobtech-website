@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function MissionAndVisionSection() {
   return (
-    <section className="relative py-[100px] bg-white px-6 sm:px-[80px]">
+    <section className="relative py-10 sm:py-[100px] bg-white px-6 sm:px-[80px]">
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 gap-10 lg:gap-20">
         <div className="flex flex-col sm:flex-row items-center gap-12">
           <div className="w-full sm:w-1/2 h-[300px] relative">
