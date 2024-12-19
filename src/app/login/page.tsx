@@ -1,9 +1,137 @@
+"use client";
+
+import ErrorAlert from "@/components/ui/ErrorAlert";
+import { auth } from "@/lib/firebase";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+type AuthError = {
+  code: string;
+};
 
 export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getErrorMessage = (error: string | AuthError): string => {
+    if (typeof error === "string") return error;
+
+    const errorMap: Record<string, string> = {
+      "auth/email-already-in-use": "Email has been registered",
+      "auth/invalid-email": "Enter valid email address",
+      "auth/weak-password": "Enter at least 6 characters",
+      "auth/wrong-password": "Incorrect email or password",
+      "auth/user-not-found": "No account found with this email",
+      "auth/too-many-requests":
+        "Too many failed attempts. Please try again later",
+    };
+
+    return errorMap[error.code] || "An error occurred during login";
+  };
+
+  const validateForm = () => {
+    if (!email) {
+      setError("Email is required");
+      return false;
+    }
+    if (!password) {
+      setError("Password is required");
+      return false;
+    }
+    if (password.length < 6) {
+      setError("Enter at least 6 characters");
+      return false;
+    }
+    return true;
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const persistence = rememberMe
+        ? browserLocalPersistence
+        : browserSessionPersistence;
+      await setPersistence(auth, persistence);
+      await signInWithPopup(auth, provider);
+      router.push("/");
+    } catch (error: unknown) {
+      if (typeof error === "string") {
+        setError(getErrorMessage(error));
+      } else if (error instanceof Object && "code" in error) {
+        setError(getErrorMessage(error as AuthError));
+      } else {
+        setError("An error occurred during Google sign-in");
+      }
+      setIsVisible(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(null);
+    setIsLoading(true);
+
+    if (!validateForm()) {
+      setIsVisible(true);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const persistence = rememberMe
+        ? browserLocalPersistence
+        : browserSessionPersistence;
+      await setPersistence(auth, persistence);
+
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/");
+    } catch (error: unknown) {
+      if (typeof error === "string") {
+        setError(getErrorMessage(error));
+      } else if (
+        error instanceof Object &&
+        "code" in error &&
+        typeof (error as AuthError).code === "string"
+      ) {
+        setError(getErrorMessage(error as AuthError));
+      } else {
+        setError("An unexpected error occurred");
+      }
+      setIsVisible(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="md:bg-gray-50 grid place-items-center h-[100dvh]">
+      <ErrorAlert
+        error={error}
+        isVisible={isVisible}
+        onClose={() => setIsVisible(false)}
+        autoDismiss={true}
+      />
       <div className="mt-7 bg-white rounded-xl shadow-sm max-w-xl w-full">
         <div className="p-4 sm:p-7">
           <div className="text-center">
@@ -24,7 +152,9 @@ export default function Login() {
           <div className="mt-5">
             <button
               type="button"
-              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none "
+              onClick={handleGoogleSignIn}
+              disabled={isLoading}
+              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
             >
               <svg
                 className="w-4 h-auto"
@@ -53,11 +183,11 @@ export default function Login() {
               Sign in with Google
             </button>
 
-            <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 ">
+            <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6">
               Or
             </div>
 
-            <form>
+            <form onSubmit={handleLogin}>
               <div className="grid gap-y-4">
                 <div>
                   <label htmlFor="email" className="block text-sm mb-2">
@@ -68,31 +198,15 @@ export default function Login() {
                       type="email"
                       id="email"
                       name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="py-3 px-4 block tracking-wider w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                       required
                       aria-describedby="email-error"
                       placeholder="mobtech@gmail.com"
+                      disabled={isLoading}
                     />
-                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                      <svg
-                        className="size-5 text-red-500"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                      >
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                      </svg>
-                    </div>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="email-error"
-                  >
-                    Please include a valid email address so we can get back to
-                    you
-                  </p>
                 </div>
 
                 <div>
@@ -100,42 +214,37 @@ export default function Login() {
                     <label htmlFor="password" className="block text-sm mb-2">
                       Password
                     </label>
-                    <a
-                      className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium "
-                      href=""
+                    <Link
+                      className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium"
+                      href="/forgot-password"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                   <div className="relative">
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
-                      className="py-3 px-4 block tracking-wider w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none "
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="py-3 px-4 block tracking-wider w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                       required
-                      aria-describedby="password-error"
                       placeholder="▪▪▪▪▪▪▪▪"
+                      disabled={isLoading}
                     />
-                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                      <svg
-                        className="size-5 text-red-500"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                      >
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                      </svg>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-600"
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="h-5 w-5" />
+                      ) : (
+                        <FaEye className="h-5 w-5" />
+                      )}
+                    </button>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="password-error"
-                  >
-                    8+ characters required
-                  </p>
                 </div>
 
                 <div className="flex items-center">
@@ -144,11 +253,14 @@ export default function Login() {
                       id="remember-me"
                       name="remember-me"
                       type="checkbox"
-                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 "
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="ms-3">
-                    <label htmlFor="remember-me" className="text-sm ">
+                    <label htmlFor="remember-me" className="text-sm">
                       Remember me
                     </label>
                   </div>
@@ -156,9 +268,10 @@ export default function Login() {
 
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full py-3 px-4 tracking-wider inline-flex justify-center items-center gap-x-2 text-lg font-medium rounded-lg border border-transparent bg-[#00008B] text-white hover:bg-[#00003E] focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  Login
+                  {isLoading ? "Logging in..." : "Login"}
                 </button>
               </div>
             </form>
