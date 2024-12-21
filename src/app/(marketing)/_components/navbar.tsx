@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import MobtechLogo from "../../../../public/svg/mobtechLogo.svg";
+import MobtechLogo from "../../../../public/svg/mobtechMainLogo.svg";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -25,7 +25,7 @@ export default function Navbar() {
             src={MobtechLogo}
             width={70}
             height={50}
-            className="w-[70px] h-[50px] hidden md:inline"
+            className="w-[70px] h-[50px] hidden md:inline rounded-full"
       
           />
           <button
