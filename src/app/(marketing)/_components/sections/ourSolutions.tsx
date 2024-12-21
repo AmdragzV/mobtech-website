@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import mainLogoLarge from "../../../public/mainLogoLarge.png";
+import mainLogoLarge from "../../../../../public/mainLogoLarge.png";
 import { FaGamepad, FaPenNib } from "react-icons/fa";
 import { HiOutlineFolder, HiOutlineGlobeAlt } from "react-icons/hi";
 

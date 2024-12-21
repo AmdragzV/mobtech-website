@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import gameImage from "../../../public/gameImage.png";
-import nexovateLogo from "../../../public/nexovateBrand.png";
-import oraigonLogo from "../../../public/oragionBrand.png";
+import gameImage from "../../../../../public/gameImage.png";
+import nexovateLogo from "../../../../../public/nexovateBrand.png";
+import oraigonLogo from "../../../../../public/oragionBrand.png";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 
