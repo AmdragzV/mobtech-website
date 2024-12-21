@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import homeBg from "../../../public/bgImage.png";
-import chatgptRobot from "../../../public/chatgptRobot.png";
+import homeBg from "../../../../../public/bgImage.png";
+import chatgptRobot from "../../../../../public/chatgptRobot.png";
 import Link from "next/link";
 
 export default function HeroSection() {

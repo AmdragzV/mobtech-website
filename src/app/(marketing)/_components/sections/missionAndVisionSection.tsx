@@ -1,6 +1,6 @@
 import React from "react";
-import MissionImage from "../../../public/mision.jpg";
-import VisionImage from "../../../public/vision.jpg";
+import MissionImage from "../../../../../public/vision.jpg";
+import VisionImage from "../../../../../public/mision.jpg";
 import Image from "next/image";
 
 export default function MissionAndVisionSection() {

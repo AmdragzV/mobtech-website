@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import MainLogoLarge from "../../../public/mainLogoLarge.png";
+import MainLogoLarge from "../../../../public/mainLogoLarge.png";
 import { FaCopyright } from "react-icons/fa";
 
 export default function Footer() {

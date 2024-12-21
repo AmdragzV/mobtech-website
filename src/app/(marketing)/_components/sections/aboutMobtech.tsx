@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import TechFrame from "../../../public/techFrame.png";
+import TechFrame from "../../../../../public/techFrame.png";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 
