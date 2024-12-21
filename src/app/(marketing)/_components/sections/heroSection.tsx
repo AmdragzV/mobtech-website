@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import homeBg from "../../../../../public/bgImage.png";
 import chatgptRobot from "../../../../../public/chatgptRobot.png";
-import Link from "next/link";
 
 export default function HeroSection() {
   const [text, setText] = useState("");
@@ -49,19 +49,17 @@ export default function HeroSection() {
         <h1 className="sm:text-[64px] text-black font-medium sm:leading-[64px] text-[32px] leading-10 text-center">
           Empower the future with
         </h1>
-        <h1
-          className="sm:text-[146px] font-medium sm:leading-[146px] text-[64px] leading-[64px] text-center mb-5 bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent typing-text"
-        >
+        <h1 className="sm:text-[146px] font-medium sm:leading-[146px] text-[64px] leading-[64px] text-center mb-5 bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent h-16 sm:h-36 typing-text overflow-hidden">
           {text}
         </h1>
-        <p className="text-md text-[#808080] leading-10 font-medium sm:text-xl sm:leading-8 text-center mb-16">
+        <p className="text-md text-[#808080] leading-8 font-medium sm:text-xl sm:leading-8 text-center mb-10 sm:mb-16 text-pretty">
           Mobtech Synergies Ltd is a forward-thinking technology company on a
           mission to solve pressing challenges at both community and global
           scales.
         </p>
 
         <Link href="/brands">
-          <button className="px-8 py-4 bg-[#00008B] md:hover:bg-[#00003E] rounded-xl text-xl font-bold text-white cursor-pointer">
+          <button className="px-8 py-4 bg-[#00008B] text-white hover:bg-blue-700 transition-colors duration-300 rounded-xl text-xl font-bold cursor-pointer">
             Explore our solutions
           </button>
         </Link>

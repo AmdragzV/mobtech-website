@@ -92,10 +92,10 @@ export default function ContactUsSection() {
   };
 
   return (
-    <section className="w-full py-10 sm:py-[136px] bg-white px-6 sm:px-[100px] relative overflow-clip">
+    <section className="w-full py-10 sm:py-[136px] bg-white px-4 sm:px-[100px] relative overflow-clip">
       <div className="hidden sm:block w-[230px] h-[217px] bg-[#00003E] rounded-full absolute -left-[118px] -top-[81px]"></div>
       <div className="flex flex-col lg:flex-row items-center justify-between gap-5 w-full max-w-[1228px] mx-auto">
-        <div className="flex flex-col self-start justify-center gap-[96px]">
+        <div className="flex flex-col self-start justify-center gap-12 md:gap-[96px]">
           <div className="grid gap-5">
             <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent">
               Get in Touch
@@ -110,14 +110,14 @@ export default function ContactUsSection() {
               <FaEnvelope size={20} style={{ color: "#000000" }} />{" "}
               <a
                 href="mailto:mobtechsincorporate@gmail.com"
-                className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10"
+                className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10 hover:text-blue-600"
               >
                 mobtechsincorporate@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-5">
               <FaPhone size={20} style={{ color: "#000000" }} />{" "}
-              <p className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10">
+              <p className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10 hover:text-blue-600 cursor-pointer">
                 Yaba, Lagos State
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function ContactUsSection() {
               <FaMapMarkerAlt size={20} style={{ color: "#000000" }} />{" "}
               <a
                 href="tel:7047993803"
-                className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10"
+                className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10 hover:text-blue-600"
               >
                 mobtech-number
               </a>
@@ -145,7 +145,7 @@ export default function ContactUsSection() {
               value={formData.firstName}
               onChange={handleChange}
               className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
-                errors.firstName ? "border-red-500" : "border-[#D4D4D4]"
+                errors.firstName ? "border-red-400" : "border-[#D4D4D4]"
               }`}
             />
             {errors.firstName && (
@@ -163,7 +163,7 @@ export default function ContactUsSection() {
               value={formData.email}
               onChange={handleChange}
               className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
-                errors.email ? "border-red-500" : "border-[#D4D4D4]"
+                errors.email ? "border-red-400" : "border-[#D4D4D4]"
               }`}
             />
             {errors.email && (
@@ -181,7 +181,7 @@ export default function ContactUsSection() {
               value={formData.phoneNumber}
               onChange={handleChange}
               className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
-                errors.phoneNumber ? "border-red-500" : "border-[#D4D4D4]"
+                errors.phoneNumber ? "border-red-400" : "border-[#D4D4D4]"
               }`}
             />
             {errors.phoneNumber && (
@@ -192,16 +192,17 @@ export default function ContactUsSection() {
           </div>
 
           <textarea
+            id="message"
             name="message"
-            placeholder="Message"
+            placeholder="Enter your message"
             value={formData.message}
             onChange={handleChange}
-            className="p-5 border-2 text-[#808080] border-[#D4D4D4] rounded-md bg-[#F9F9F9] h-[229px] mt-5"
+            className="p-5 w-full h-32 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 border-2 mt-5 bg-[#F9F9F9]"
           ></textarea>
 
           <button
             type="submit"
-            className="p-5 rounded-md mt-[2rem] bg-[#00008B] text-xl leading-8 font-medium text-white md:hover:bg-[#000054] transition-colors"
+            className="p-4 rounded-md mt-[2rem] bg-[#00008B] text-white hover:bg-blue-700 transition-all duration-300 text-xl leading-8 font-medium"
           >
             Send Message
           </button>
