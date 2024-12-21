@@ -1,12 +1,11 @@
-import React from "react";
 import Image from "next/image";
-import mainLogoLarge from "../../../../../public/mainLogoLarge.png";
 import { FaGamepad, FaPenNib } from "react-icons/fa";
 import { HiOutlineFolder, HiOutlineGlobeAlt } from "react-icons/hi";
+import MobtechLogo from "../../../../../public/svg/mobtechMainLogo.svg";
 
 export default function OurSolutionsSection() {
   return (
-    <section className="w-full py-10 sm:py-20 bg-white px-6 sm:px-20">
+    <section className="w-full py-10 sm:py-20 bg-white px-4 sm:px-20">
       <div className="max-w-7xl mx-auto space-y-16">
         <div className="text-center">
           <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00003E] to-[#0000A4] bg-clip-text text-transparent mb-5">
@@ -22,11 +21,11 @@ export default function OurSolutionsSection() {
         <div className="relative">
           <div className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
             <Image
-              alt="main mobtech logo"
-              src={mainLogoLarge}
-              width={100}
-              height={100}
-              className="border-4 border-white"
+              alt="mobtech logo image"
+              src={MobtechLogo}
+              width={70}
+              height={50}
+              className="w-24 h-16 rounded-full bg-white"
             />
           </div>
 
