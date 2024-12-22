@@ -3,23 +3,28 @@
 import ErrorAlert from "@/components/ui/ErrorAlert";
 import { auth } from "@/lib/firebase";
 import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
+  GoogleAuthProvider,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+const Login = dynamic(() => Promise.resolve(LoginPage), {
+  ssr: false,
+});
+
 type AuthError = {
   code: string;
 };
 
-export default function Login() {
+function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -282,3 +287,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login;
