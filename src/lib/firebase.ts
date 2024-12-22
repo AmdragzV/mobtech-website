@@ -1,5 +1,4 @@
-// Import the functions you need from the SDKs you need
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported as isAnalyticsSupported } from "firebase/analytics";
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
@@ -12,11 +11,21 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
+// Initialize Firebase app
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
 // Export Firebase Services
-const auth = typeof window !== 'undefined' ? getAuth(app) : null;
-const analytics = getAnalytics(app);
+let analytics: ReturnType<typeof getAnalytics> | null = null;
+let auth: ReturnType<typeof getAuth> | null = null;
+
+if (typeof window !== "undefined") {
+  // Client-side initialization
+  auth = getAuth(app);
+  isAnalyticsSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  });
+}
 
 export { analytics, app, auth };
