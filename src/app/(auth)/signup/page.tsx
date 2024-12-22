@@ -1,22 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import ErrorAlert from "@/components/ui/ErrorAlert";
+import { auth } from "@/lib/firebase";
 import {
   createUserWithEmailAndPassword,
-  signInWithPopup,
   GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import ErrorAlert from "@/components/ui/ErrorAlert";
+import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+const SignUp = dynamic(() => Promise.resolve(SignUpPage), {
+  ssr: false,
+});
 
 type AuthError = {
   code: string;
 };
 
-export default function SignUp() {
+function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -298,3 +303,5 @@ export default function SignUp() {
     </div>
   );
 }
+
+export default SignUp;
