@@ -62,6 +62,7 @@ export default function Login() {
   };
 
   const handleGoogleSignIn = async () => {
+    if (!auth) return;
     setIsLoading(true);
     setError(null);
 
@@ -89,6 +90,7 @@ export default function Login() {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!auth) return;
     setError(null);
     setIsLoading(true);
 
@@ -103,7 +105,6 @@ export default function Login() {
         ? browserLocalPersistence
         : browserSessionPersistence;
       await setPersistence(auth, persistence);
-
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/");
     } catch (error: unknown) {

@@ -66,13 +66,14 @@ export default function SignUp() {
   };
 
   const handleGoogleSignUp = async () => {
+    if (!auth) return;
     setIsLoading(true);
     setError("");
 
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
-      router.push("/"); 
+      router.push("/");
     } catch (error: unknown) {
       if (typeof error === "string") {
         setError(getErrorMessage(error));
@@ -89,6 +90,7 @@ export default function SignUp() {
 
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!auth) return;
     setError("");
     setIsLoading(true);
 
@@ -100,7 +102,7 @@ export default function SignUp() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/"); 
+      router.push("/");
     } catch (error: unknown) {
       if (typeof error === "string") {
         setError(getErrorMessage(error));
