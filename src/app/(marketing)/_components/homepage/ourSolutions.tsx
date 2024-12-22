@@ -30,7 +30,7 @@ export default function OurSolutionsSection() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-0 border border-gray-200 rounded-2xl overflow-hidden">
-            <div className="p-8 md:p-12 flex flex-col justify-center border-b md:border-r border-gray-200">
+            <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center border-b md:border-r border-gray-200">
               <div className="w-10 h-10 rounded-lg bg-[#F9F9FB] flex items-center justify-center mb-6">
                 <HiOutlineGlobeAlt size={20} className="text-black" />
               </div>
@@ -44,7 +44,7 @@ export default function OurSolutionsSection() {
               </p>
             </div>
 
-            <div className="p-8 md:py-12 md:pl-16 md:pr-12 flex flex-col justify-center border-b border-l border-gray-200">
+            <div className="p-6 sm:p-8 md:py-12 md:pl-16 md:pr-12 flex flex-col justify-center border-b border-l border-gray-200">
               <div className="w-10 h-10 rounded-lg bg-[#F9F9FB] flex items-center justify-center mb-6">
                 <HiOutlineFolder size={20} className="text-black" />
               </div>
@@ -58,7 +58,7 @@ export default function OurSolutionsSection() {
               </p>
             </div>
 
-            <div className="p-8 md:p-12 flex flex-col justify-center border-r border-t border-gray-200">
+            <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center border-r border-t border-gray-200">
               <div className="w-10 h-10 rounded-lg bg-[#F9F9FB] flex items-center justify-center mb-6">
                 <FaGamepad size={20} className="text-black" />
               </div>
@@ -73,7 +73,7 @@ export default function OurSolutionsSection() {
               </p>
             </div>
 
-            <div className="p-8 md:py-12 md:pl-16 md:pr-12 flex flex-col justify-center border-t border-l border-gray-200">
+            <div className="p-6 sm:p-8 md:py-12 md:pl-16 md:pr-12 flex flex-col justify-center border-t border-l border-gray-200">
               <div className="w-10 h-10 rounded-lg bg-[#F9F9FB] flex items-center justify-center mb-6">
                 <FaPenNib size={20} className="text-black" />
               </div>

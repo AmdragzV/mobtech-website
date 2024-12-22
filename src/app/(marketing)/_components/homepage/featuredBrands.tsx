@@ -60,7 +60,7 @@ export default function FeaturedBrandsSection() {
       },
     },
     {
-      name: "Gacoum Gaming",
+      name: "Gacom Gaming",
       logo: gameImage,
       description:
         "Dedicated to gaming innovation with immersive games, high-performance gadgets, and a vibrant social platform for gamers.",
@@ -108,7 +108,7 @@ export default function FeaturedBrandsSection() {
                 index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
               } lg:flex`}
             >
-              <div className="lg:w-1/3 p-8 bg-gradient-to-br from-blue-50 to-white flex flex-col justify-center items-center">
+              <div className="lg:w-1/3 px-4 py-6 sm:p-8 bg-gradient-to-br from-blue-50 to-white flex flex-col justify-center items-center">
                 <div className="relative w-64 h-48 mb-6">
                   <Image
                     src={brand.logo}
@@ -118,7 +118,7 @@ export default function FeaturedBrandsSection() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
-                <div className="grid grid-cols-1 max-sm:place-content-center sm:grid-cols-2 gap-4 w-full">
+                <div className="grid grid-cols-2 max-sm:place-content-center sm:grid-cols-2 gap-4 w-full">
                   {brand.stats.map((stat) => (
                     <div key={stat.label} className="text-center p-3">
                       <stat.icon className="w-6 h-6 mx-auto mb-2 text-blue-600" />
@@ -131,7 +131,7 @@ export default function FeaturedBrandsSection() {
                 </div>
               </div>
 
-              <div className="lg:w-2/3 p-8">
+              <div className="lg:w-2/3 px-4 py-6 sm:p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   {brand.name}
                 </h3>
@@ -155,7 +155,7 @@ export default function FeaturedBrandsSection() {
                   </div>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-6 mb-8">
+                <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8">
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">
                     Featured Project
                   </h4>

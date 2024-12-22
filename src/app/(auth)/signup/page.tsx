@@ -284,7 +284,7 @@ export default function SignUp() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3 px-4 tracking-wider inline-flex justify-center items-center gap-x-2 text-lg font-medium rounded-lg border border-transparent bg-[#00008B] text-white hover:bg-[#00003E] focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+                  className="w-full py-3 px-4 tracking-wider inline-flex justify-center items-center gap-x-2 text-lg font-medium rounded-lg border border-transparent bg-[#00008B] text-white hover:bg-blue-700 transition-colors duration-300 focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
                 >
                   {isLoading ? "Signing up..." : "Sign up"}
                 </button>

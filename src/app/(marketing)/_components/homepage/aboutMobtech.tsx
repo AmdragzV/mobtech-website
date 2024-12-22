@@ -35,7 +35,7 @@ export default function AboutMobtechSection() {
   ];
 
   return (
-    <section className="w-full pt-10 pb-16 sm:py-24 bg-white relative overflow-hidden">
+    <section className="w-full py-16 sm:py-24 bg-white relative overflow-hidden">
       <Image
         alt="tech frame for design"
         src={TechFrame}

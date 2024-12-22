@@ -87,7 +87,7 @@ export default function FaqSection() {
                     className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
                   >
                     <button
-                      className="w-full flex items-center justify-between p-6 cursor-pointer"
+                      className="w-full flex items-center justify-between p-4 sm:p-6 cursor-pointer"
                       onClick={() => toggleFaq(index)}
                     >
                       <p className="text-lg font-medium text-gray-900 text-left">

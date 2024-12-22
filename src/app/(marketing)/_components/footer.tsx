@@ -11,7 +11,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full pt-20 pb-6 bg-[#00008B] px-4">
+    <footer className="w-full pt-16 sm:pt-20 pb-6 bg-[#00008B] px-4">
       <div className="grid items-center w-full max-w-[1025px] mx-auto">
         <div className="flex gap-8 sm:gap-10 items-center justify-center w-full max-w-2xl mx-auto">
           <div className="flex max-sm:flex-col max-sm:text-left sm:space-x-6">
