@@ -9,6 +9,7 @@ import {
   BsPeople,
   BsStars,
 } from "react-icons/bs";
+import Founder from '../../../../public/founder.jpg';
 
 interface StatProps {
   icon: React.ReactNode;
@@ -94,7 +95,7 @@ export default function AboutUs() {
             <div className="lg:w-1/3">
               <div className="relative w-[300px] sm:w-full aspect-square rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/api/placeholder/400/400"
+                  src={Founder}
                   alt="Akinyemi Akinjide Samuel"
                   width={400}
                   height={400}
