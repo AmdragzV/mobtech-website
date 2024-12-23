@@ -127,6 +127,7 @@ export default function FaqSection() {
             <a
               href="mailto:support@mobtechsynergies.com"
               className="flex items-center gap-3 p-4 bg-white rounded-xl hover:shadow-md transition-shadow duration-300"
+              aria-label="Contact the Mobtech Synergies Ltd official email for support, guaranted by the founder Akinyemi Akinjide Samuel"
             >
               <FaEnvelope className="text-blue-600 text-xl" />
               <div>
@@ -137,6 +138,7 @@ export default function FaqSection() {
             <a
               href="tel:+15551234567"
               className="flex items-center gap-3 p-4 bg-white rounded-xl hover:shadow-md transition-shadow duration-300"
+              aria-label="Contact the Mobtech Synergies official phone number for support, guaranted by the founder Akinyemi Akinjide Samuel"
             >
               <FaPhone className="text-blue-600 text-xl" />
               <div>

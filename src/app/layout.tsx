@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mobtech Synergies LTD",
-  description: "Empower the future with mobtech",
+  title: "Mobtech Synergies Ltd | Innovative Tech Solutions",
+  description: "Explore Mobtech Synergies Ltd, a forward-thinking tech company founded by Akinyemi Akinjide Samuel revolutionizing web, game, and software development. Discover our brands: Nexovate, Gacom, Oragion, and more.",
 };
 
 export default function RootLayout({

@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import Image from "next/image";
 import React from "react";
 import {
@@ -24,6 +26,12 @@ const StatItem: React.FC<StatProps> = ({ icon, number, label }) => (
     <p className="text-gray-600 text-center">{label}</p>
   </div>
 );
+
+export const metadata: Metadata = {
+  title: "About Mobtech Synergies Ltd | Our Story and Leadership",
+  description:
+    "Learn about Mobtech Synergies Ltd\u0027s journey, values, and executive team. Discover the leadership of founder Akinyemi Akinjide Samuel.",
+};
 
 const FeatureCard: React.FC<{ icon: React.ReactNode; title: string }> = ({
   icon,
@@ -110,6 +118,7 @@ export default function AboutUs() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                  aria-label="Link to the Founder of Mobtech Synergies Ltd, Akinyemi Akinjide Samuel"
                 >
                   <BsInstagram size={20} />
                   <span>@official_akinyemiakinjide</span>
@@ -119,7 +128,16 @@ export default function AboutUs() {
 
             <div className="lg:w-2/3 space-y-6">
               <p className="text-lg leading-relaxed">
-                At the helm of Mobtech Synergies Ltd., Akinyemi Akinjide Samuel
+                At the helm of Mobtech Synergies Ltd.,{" "}
+                <a
+                  href="https://www.linkedin.com/in/akinyemi-akinjide-1a8640245?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                  className="font-bold hover:text-blue-800"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Learn more about Mobtech Synergies Ltd and its founder, Akinyemi Akinjide Samuel"
+                >
+                  Akinyemi Akinjide Samuel
+                </a>{" "}
                 stands as a testament to visionary leadership in the tech
                 industry. His journey embodies the perfect fusion of
                 entrepreneurial spirit and technological innovation, driven by a
@@ -129,20 +147,38 @@ export default function AboutUs() {
               <p className="text-lg leading-relaxed">
                 Through groundbreaking initiatives like Gacom, a revolutionary
                 gaming social networking platform, and the Virtual Marketing
-                Space (VMS), Akinyemi has demonstrated his commitment to
-                transforming traditional industries. Gacom represents his vision
-                of elevating gaming from a mere hobby to a viable career path,
-                while VMS empowers businesses to thrive in the digital
-                marketplace.
+                Space (VMS),{" "}
+                <a
+                  href="https://www.linkedin.com/in/akinyemi-akinjide-1a8640245?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                  className="font-bold hover:text-blue-800"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Learn more about Mobtech Synergies Ltd and its founder, Akinyemi Akinjide Samuel"
+                >
+                  Akinyemi
+                </a>{" "}
+                has demonstrated his commitment to transforming traditional
+                industries. Gacom represents his vision of elevating gaming from
+                a mere hobby to a viable career path, while VMS empowers
+                businesses to thrive in the digital marketplace.
               </p>
               <p className="text-lg leading-relaxed">
-                Beyond his technological ventures, Akinyemi has established
-                himself as an influential author with works like &quot;The Power
-                of Debt&quot; and &quot;Business Models,&quot; sharing crucial
-                insights on financial strategy and entrepreneurship. His
-                leadership extends to the spiritual realm through the Global
-                Leadership Christian Network (GLCN), where he guides individuals
-                to lead with purpose and integrity.
+                Beyond his technological ventures,{" "}
+                <a
+                  href="https://www.linkedin.com/in/akinyemi-akinjide-1a8640245?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                  className="font-bold hover:text-blue-800"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Learn more about Mobtech Synergies Ltd and its founder, Akinyemi Akinjide Samuel"
+                >
+                  Akinyemi
+                </a>{" "}
+                has established himself as an influential author with works like
+                &quot;The Power of Debt&quot; and &quot;Business Models,&quot;
+                sharing crucial insights on financial strategy and
+                entrepreneurship. His leadership extends to the spiritual realm
+                through the Global Leadership Christian Network (GLCN), where he
+                guides individuals to lead with purpose and integrity.
               </p>
             </div>
           </div>

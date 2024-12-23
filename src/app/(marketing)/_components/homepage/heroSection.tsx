@@ -53,9 +53,17 @@ export default function HeroSection() {
           {text}
         </h1>
         <p className="text-md text-[#808080] leading-8 font-medium sm:text-xl sm:leading-8 text-center mb-10 sm:mb-16 text-pretty">
-          Mobtech Synergies Ltd is a forward-thinking technology company on a
-          mission to solve pressing challenges at both community and global
-          scales.
+          <a
+            href="https://www.linkedin.com/in/akinyemi-akinjide-1a8640245?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+            className="font-bold hover:text-blue-800"
+            target="blank"
+            rel="noopener noreferrer"
+            aria-label="Learn more about Mobtech Synergies Ltd and its founder, Akinyemi Akinjide Samuel"
+          >
+            Mobtech Synergies Ltd
+          </a>{" "}
+          is a forward-thinking technology company on a mission to solve
+          pressing challenges at both community and global scales.
         </p>
 
         <Link href="/brands">
