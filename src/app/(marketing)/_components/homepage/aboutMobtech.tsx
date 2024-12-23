@@ -57,12 +57,20 @@ export default function AboutMobtechSection() {
             </h1>
 
             <p className="text-lg text-gray-600 leading-relaxed">
-              Mobtech Synergies Ltd is a forward-thinking technology company on
-              a mission to solve pressing challenges at both community and
-              global scales. Our unique approach combines science, technology,
-              and engineering to create transformative solutions that uplift
-              communities, drive innovation, and foster positive, sustainable
-              change.
+              <a
+                href="https://www.instagram.com/mobtech_synergies/profilecard/?igsh=eWwzcWp5NWQya28="
+                className="font-bold hover:text-blue-800"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Learn more about Mobtech Synergies Ltd and its founders effort in making it happen, Akinyemi Akinjide Samuel"
+              >
+                Mobtech Synergies Ltd
+              </a>{" "}
+              is a forward-thinking technology company on a mission to solve
+              pressing challenges at both community and global scales. Our
+              unique approach combines science, technology, and engineering to
+              create transformative solutions that uplift communities, drive
+              innovation, and foster positive, sustainable change.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

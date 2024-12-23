@@ -77,9 +77,15 @@ export default function MissionAndVisionSection() {
                 To address critical challenges by creating forward-thinking,
                 sustainable, and impactful solutions that leverage the best of
                 science, technology, and engineering. At{" "}
-                <span className="font-bold text-gray-800">
+                <a
+                  href="https://www.linkedin.com/company/mobtech-synergies-ltd"
+                  className="font-bold hover:text-blue-800"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Learn more about Mobtech Synergies Ltd and its founder, Akinyemi Akinjide Samuel"
+                >
                   Mobtech Synergies Ltd
-                </span>
+                </a>
                 , we are dedicated to improving lives and communities through
                 strategic partnerships, continuous innovation, and a commitment
                 to social responsibility.

@@ -188,6 +188,7 @@ export default function ContactUs() {
         <a
           href="mailto:mobtechsincorporate@gmail.com"
           className="text-blue-600 hover:text-blue-700 transition-colors duration-300"
+          arial-label="Contact official email for official Mobtech support"
         >
           mobtechsincorporate@gmail.com
         </a>
