@@ -14,6 +14,7 @@ interface FormErrors {
   firstName?: string;
   email?: string;
   phoneNumber?: string;
+  message?: string;
 }
 
 export default function ContactUsSection() {
@@ -35,6 +36,7 @@ export default function ContactUsSection() {
       [name]: value,
     }));
 
+    // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
@@ -51,7 +53,7 @@ export default function ContactUsSection() {
 
   const validatePhoneNumber = (phone: string): boolean => {
     const re = /^[0-9]{10,14}$/;
-    return re.test(String(phone).replace(/\s+/g, ""));
+    return re.test(String(phone).replace(/[^0-9]/g, "")); // Remove all non-numeric characters
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -72,7 +74,11 @@ export default function ContactUsSection() {
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = "Phone Number is required";
     } else if (!validatePhoneNumber(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Invalid phone number";
+      newErrors.phoneNumber = "Invalid phone number (10-14 digits)";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -107,7 +113,7 @@ export default function ContactUsSection() {
           </div>
           <div className="grid gap-2 md:gap-4">
             <div className="flex items-center gap-5">
-              <FaEnvelope size={20} style={{ color: "#000000" }} />{" "}
+              <FaEnvelope size={20} style={{ color: "#000000" }} />
               <a
                 href="mailto:mobtechsincorporate@gmail.com"
                 className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10 hover:text-blue-600"
@@ -116,13 +122,13 @@ export default function ContactUsSection() {
               </a>
             </div>
             <div className="flex items-center gap-5">
-              <FaPhone size={20} style={{ color: "#000000" }} />{" "}
-              <p className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10 hover:text-blue-600 cursor-pointer">
+              <FaMapMarkerAlt size={20} style={{ color: "#000000" }} />
+              <p className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10">
                 Yaba, Lagos State
               </p>
             </div>
             <div className="flex items-center gap-5">
-              <FaMapMarkerAlt size={20} style={{ color: "#000000" }} />{" "}
+              <FaPhone size={20} style={{ color: "#000000" }} />
               <a
                 href="tel:7047993803"
                 className="text-base leading-[32px] text-[#808080] font-medium sm:text-xl sm:leading-10 hover:text-blue-600"
@@ -135,9 +141,21 @@ export default function ContactUsSection() {
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-5 w-full max-w-[611px]"
+          className="flex flex-col gap-6 w-full max-w-[611px]"
         >
-          <div className="relative">
+          <style jsx global>{`
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus,
+            textarea:-webkit-autofill,
+            textarea:-webkit-autofill:hover,
+            textarea:-webkit-autofill:focus {
+              -webkit-box-shadow: 0 0 0px 1000px #f9f9f9 inset !important;
+              -webkit-text-fill-color: #808080 !important;
+              transition: background-color 5000s ease-in-out 0s;
+            }
+          `}</style>
+          <div className="flex flex-col gap-1">
             <input
               type="text"
               name="firstName"
@@ -149,13 +167,11 @@ export default function ContactUsSection() {
               }`}
             />
             {errors.firstName && (
-              <div className="absolute text-red-500 text-sm mt-1">
-                {errors.firstName}
-              </div>
+              <span className="text-red-500 text-sm">{errors.firstName}</span>
             )}
           </div>
 
-          <div className="relative mt-5">
+          <div className="flex flex-col gap-1">
             <input
               type="email"
               name="email"
@@ -167,13 +183,11 @@ export default function ContactUsSection() {
               }`}
             />
             {errors.email && (
-              <div className="absolute text-red-500 text-sm mt-1">
-                {errors.email}
-              </div>
+              <span className="text-red-500 text-sm">{errors.email}</span>
             )}
           </div>
 
-          <div className="relative mt-5">
+          <div className="flex flex-col gap-1">
             <input
               type="tel"
               name="phoneNumber"
@@ -185,24 +199,28 @@ export default function ContactUsSection() {
               }`}
             />
             {errors.phoneNumber && (
-              <div className="absolute text-red-500 text-sm mt-1">
-                {errors.phoneNumber}
-              </div>
+              <span className="text-red-500 text-sm">{errors.phoneNumber}</span>
             )}
           </div>
 
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Enter your message"
-            value={formData.message}
-            onChange={handleChange}
-            className="p-5 w-full h-32 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 border-2 mt-5 bg-[#F9F9F9]"
-          ></textarea>
+          <div className="flex flex-col gap-1">
+            <textarea
+              name="message"
+              placeholder="Enter your message"
+              value={formData.message}
+              onChange={handleChange}
+              className={`p-5 w-full h-32 rounded-md border-2 bg-[#F9F9F9] ${
+                errors.message ? "border-red-400" : "border-[#D4D4D4]"
+              }`}
+            />
+            {errors.message && (
+              <span className="text-red-500 text-sm">{errors.message}</span>
+            )}
+          </div>
 
           <button
             type="submit"
-            className="p-4 rounded-md mt-[2rem] bg-[#00008B] text-white hover:bg-blue-700 transition-all duration-300 text-xl leading-8 font-medium"
+            className="p-4 rounded-md bg-[#00008B] text-white hover:bg-blue-700 transition-all duration-300 text-xl leading-8 font-medium"
           >
             Send Message
           </button>

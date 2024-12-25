@@ -19,17 +19,118 @@ interface FormErrors {
   firstName?: string;
   email?: string;
   phoneNumber?: string;
+  message?: string;
 }
 
-const validateEmail = (email: string): boolean => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(String(email).toLowerCase());
-};
+interface NewsletterFormData {
+  email: string;
+}
 
-const validatePhoneNumber = (phone: string): boolean => {
-  const re = /^[0-9]{10,14}$/;
-  return re.test(String(phone).replace(/\s+/g, ""));
-};
+interface NewsletterErrors {
+  email?: string;
+}
+
+const ContactForm = ({
+  formData,
+  handleChange,
+  handleContactSubmit,
+  errors,
+}: {
+  formData: FormData;
+  handleChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleContactSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  errors: FormErrors;
+}) => (
+  <form
+    onSubmit={handleContactSubmit}
+    className="flex flex-col gap-6 w-full max-w-[611px]"
+  >
+    <style jsx global>{`
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover,
+      textarea:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px #f9f9f9 inset !important;
+        -webkit-text-fill-color: #808080 !important;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    `}</style>
+
+    <div className="flex flex-col gap-1">
+      <input
+        type="text"
+        name="firstName"
+        placeholder="First Name"
+        value={formData.firstName}
+        onChange={handleChange}
+        className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
+          errors.firstName ? "border-red-400" : "border-[#D4D4D4]"
+        }`}
+      />
+      {errors.firstName && (
+        <span className="text-red-500 text-sm">{errors.firstName}</span>
+      )}
+    </div>
+
+    <div className="flex flex-col gap-1">
+      <input
+        type="email"
+        name="email"
+        placeholder="E-mail"
+        value={formData.email}
+        onChange={handleChange}
+        className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
+          errors.email ? "border-red-400" : "border-[#D4D4D4]"
+        }`}
+      />
+      {errors.email && (
+        <span className="text-red-500 text-sm">{errors.email}</span>
+      )}
+    </div>
+
+    <div className="flex flex-col gap-1">
+      <input
+        type="tel"
+        name="phoneNumber"
+        placeholder="Phone Number"
+        value={formData.phoneNumber}
+        onChange={handleChange}
+        className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
+          errors.phoneNumber ? "border-red-400" : "border-[#D4D4D4]"
+        }`}
+      />
+      {errors.phoneNumber && (
+        <span className="text-red-500 text-sm">{errors.phoneNumber}</span>
+      )}
+    </div>
+
+    <div className="flex flex-col gap-1">
+      <textarea
+        name="message"
+        placeholder="Enter your message"
+        value={formData.message}
+        onChange={handleChange}
+        className={`p-5 w-full h-32 rounded-md border-2 bg-[#F9F9F9] ${
+          errors.message ? "border-red-400" : "border-[#D4D4D4]"
+        }`}
+      />
+      {errors.message && (
+        <span className="text-red-500 text-sm">{errors.message}</span>
+      )}
+    </div>
+
+    <button
+      type="submit"
+      className="p-4 rounded-md bg-[#00008B] text-white hover:bg-blue-700 transition-all duration-300 text-xl leading-8 font-medium"
+    >
+      Send Message
+    </button>
+  </form>
+);
 
 export default function ContactUs() {
   const [formData, setFormData] = useState<FormData>({
@@ -38,8 +139,16 @@ export default function ContactUs() {
     phoneNumber: "",
     message: "",
   });
+
+  const [newsletterFormData, setNewsletterFormData] =
+    useState<NewsletterFormData>({
+      email: "",
+    });
+
   const [errors, setErrors] = useState<FormErrors>({});
-  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterErrors, setNewsletterErrors] = useState<NewsletterErrors>(
+    {}
+  );
   const [subscribed, setSubscribed] = useState(false);
 
   const handleChange = (
@@ -51,6 +160,7 @@ export default function ContactUs() {
       [name]: value,
     }));
 
+    // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
@@ -60,8 +170,36 @@ export default function ContactUs() {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleNewsletterChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setNewsletterFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Clear error when user starts typing
+    if (newsletterErrors[name as keyof NewsletterErrors]) {
+      setNewsletterErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name as keyof NewsletterErrors];
+        return newErrors;
+      });
+    }
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePhoneNumber = (phone: string): boolean => {
+    const re = /^[0-9]{10,14}$/;
+    return re.test(String(phone).replace(/[^0-9]/g, ""));
+  };
+
+  const handleContactSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const newErrors: FormErrors = {};
 
     if (!formData.firstName.trim()) {
@@ -77,7 +215,11 @@ export default function ContactUs() {
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = "Phone Number is required";
     } else if (!validatePhoneNumber(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Invalid phone number";
+      newErrors.phoneNumber = "Invalid phone number (10-14 digits)";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -85,13 +227,8 @@ export default function ContactUs() {
       return;
     }
 
-    if (newsletterEmail) {
-      setSubscribed(true);
-      setNewsletterEmail("");
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-
     alert("Form submitted successfully!");
+
     setFormData({
       firstName: "",
       email: "",
@@ -101,82 +238,27 @@ export default function ContactUs() {
     setErrors({});
   };
 
-  const ContactForm = () => (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-5 w-full max-w-[611px]"
-    >
-      <div className="relative">
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={formData.firstName}
-          onChange={handleChange}
-          className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
-            errors.firstName ? "border-red-400" : "border-[#D4D4D4]"
-          }`}
-        />
-        {errors.firstName && (
-          <div className="absolute text-red-500 text-sm mt-1">
-            {errors.firstName}
-          </div>
-        )}
-      </div>
+  const handleNewsletterSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newErrors: NewsletterErrors = {};
 
-      <div className="relative mt-5">
-        <input
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          value={formData.email}
-          onChange={handleChange}
-          className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
-            errors.email ? "border-red-400" : "border-[#D4D4D4]"
-          }`}
-        />
-        {errors.email && (
-          <div className="absolute text-red-500 text-sm mt-1">
-            {errors.email}
-          </div>
-        )}
-      </div>
+    if (!newsletterFormData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!validateEmail(newsletterFormData.email)) {
+      newErrors.email = "Invalid email format";
+    }
 
-      <div className="relative mt-5">
-        <input
-          type="tel"
-          name="phoneNumber"
-          placeholder="Phone Number"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          className={`p-5 border-2 text-[#808080] rounded-md bg-[#F9F9F9] w-full ${
-            errors.phoneNumber ? "border-red-400" : "border-[#D4D4D4]"
-          }`}
-        />
-        {errors.phoneNumber && (
-          <div className="absolute text-red-500 text-sm mt-1">
-            {errors.phoneNumber}
-          </div>
-        )}
-      </div>
+    if (Object.keys(newErrors).length > 0) {
+      setNewsletterErrors(newErrors);
+      return;
+    }
 
-      <textarea
-        id="message"
-        name="message"
-        placeholder="Enter your message"
-        value={formData.message}
-        onChange={handleChange}
-        className="p-5 w-full h-32 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 border-2 mt-5 bg-[#F9F9F9]"
-      />
-
-      <button
-        type="submit"
-        className="p-4 rounded-md mt-[2rem] bg-[#00008B] text-white hover:bg-blue-700 transition-all duration-300 text-xl leading-8 font-medium"
-      >
-        Send Message
-      </button>
-    </form>
-  );
+    // Proceed with subscription logic
+    setSubscribed(true);
+    setNewsletterFormData({ email: "" });
+    setNewsletterErrors({});
+    setTimeout(() => setSubscribed(false), 3000);
+  };
 
   const ContactInfo = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl mx-auto px-4 py-10">
@@ -188,15 +270,15 @@ export default function ContactUs() {
         <a
           href="mailto:mobtechsincorporate@gmail.com"
           className="text-blue-600 hover:text-blue-700 transition-colors duration-300"
-          arial-label="Contact official email for official Mobtech support"
+          aria-label="Contact official email for official Mobtech support"
         >
           mobtechsincorporate@gmail.com
         </a>
       </div>
 
       <div className="bg-white px-4 py-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col sm:items-center sm:text-center">
-        <div className="bg-blue-50 p-4 rounded-full mb-4  w-fit ">
-          <FaMapMarkerAlt size={24} className="text-blue-600 " />
+        <div className="bg-blue-50 p-4 rounded-full mb-4 w-fit">
+          <FaMapMarkerAlt size={24} className="text-blue-600" />
         </div>
         <h3 className="font-semibold text-lg mb-2">Visit Us</h3>
         <p className="text-gray-600">
@@ -207,7 +289,7 @@ export default function ContactUs() {
       </div>
 
       <div className="bg-white px-4 py-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col sm:items-center sm:text-center">
-        <div className="bg-blue-50 p-4 rounded-full mb-4  w-fit">
+        <div className="bg-blue-50 p-4 rounded-full mb-4 w-fit">
           <FaPhone size={24} className="text-blue-600" />
         </div>
         <h3 className="font-semibold text-lg mb-2">Call Us</h3>
@@ -240,14 +322,17 @@ export default function ContactUs() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="relative">
+            <form onSubmit={handleNewsletterSubmit} className="relative">
               <input
                 type="email"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
+                name="email"
+                value={newsletterFormData.email}
+                onChange={handleNewsletterChange}
                 placeholder="Enter your email"
-                className="w-full p-4 pr-36 rounded-lg border-2 border-gray-200 focus:border-blue-600 focus:outline-none"
-                required
+                autoComplete="email"
+                className={`w-full p-4 pr-36 rounded-lg border-2 ${
+                  newsletterErrors.email ? "border-red-400" : "border-gray-200"
+                } focus:border-blue-600 focus:outline-none`}
               />
               <button
                 type="submit"
@@ -255,6 +340,11 @@ export default function ContactUs() {
               >
                 Subscribe
               </button>
+              {newsletterErrors.email && (
+                <span className="absolute left-0 -top-1/2 text-red-500 text-sm mt-2 block">
+                  {newsletterErrors.email}
+                </span>
+              )}
               {subscribed && (
                 <div className="absolute mt-2 text-green-600">
                   Thanks for subscribing!
@@ -282,7 +372,12 @@ export default function ContactUs() {
               </p>
             </div>
           </div>
-          <ContactForm />
+          <ContactForm
+            formData={formData}
+            handleChange={handleChange}
+            handleContactSubmit={handleContactSubmit}
+            errors={errors}
+          />
         </div>
 
         <iframe
