@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/svg/mobtechMainLogo.svg" type="svg" />
+        <link rel="icon" href="/svg/mobtechFavicon.svg" type="svg" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
