@@ -25,14 +25,14 @@ export default function Navbar() {
             src={MobtechLogo}
             width={70}
             height={50}
-            className="w-[60px] h-[60px] hidden md:inline rounded-full"
+            className="w-[60px] h-[60px] hidden md:inline rounded-md"
           />
           <Image
             alt="mobtech logo image"
             src={MobtechLogo}
             width={70}
             height={50}
-            className="block md:hidden w-10 h-10 rounded-full"
+            className="block md:hidden w-10 h-10 rounded-md"
           />
 
           <ul className="flex items-center justify-between w-full max-w-[486px] max-md:hidden">
